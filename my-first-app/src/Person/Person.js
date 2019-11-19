@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
+import './Person.css';
 
-const person = (data) => {
-return <p>I'm {data.name}! and I'm {Math.floor(Math.random()*30)} years old</p>
+const Person = (props) => {
+    return (
+        <div className="Person">
+            <p onClick={props.click}>I'm {props.name} and I'm {props.age} years old</p>
+            <p>{props.children}</p>
+            <input type="text" onChange={props.change} value={props.name}></input>
+        </div>
+    )
 }
 
-export default person;
+// class Person extends Component {
+//     render () {
+//     return <p>My name is {this.props.name}</p>
+//     }
+// }
+
+export default Person;
