@@ -1,7 +1,7 @@
 import React from 'react';
 import Person from './Person/Person';
 
-const persons = (props) => props.map((e, index) => {
+const persons = (props) => props.persons.map((e, index) => {
     return <Person
         click={() => props.clicked(index)}
         name={e.name}

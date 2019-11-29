@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('aaaaaa');
+  }
+
   state = {
     persons: [
       { id: 'abc', name: 'Roger', age: '23' },
@@ -10,6 +16,11 @@ class App extends Component {
     ],
     otherState: 'Some state',
     showPersons: false
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('bbbb', props);
+    return state;
   }
 
   switchNameHandler = (newName) => {
@@ -51,41 +62,29 @@ class App extends Component {
     // const persons = this.state.persons;
     persons.splice(personIndex, 1)
     this.setState({ persons: persons })
-
   }
 
   render() {
-
     let persons = null;
-    let btnClass = '';
 
     if (this.state.showPersons) {
       persons = (
         <div>
           <Persons
-          clicked={this.deletePersonHandler}
-          changed={this.nameChangedHandler}
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangedHandler}
           />
         </div>
       );
-      btnClass = classes.Red;
-    }
-
-    const assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red);
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold);
     }
 
     return (
       <div className={classes.App}>
-        <h1>Hi, I'm a React App</h1>
-        <p className={assignedClasses.join(' ')}>This is really working</p>
-        <button
-          className={btnClass}
-          onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        <Cockpit
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler} />
         {persons}
       </div>
     );
